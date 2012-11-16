@@ -34,9 +34,9 @@ class DummyTranslatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testTranslate()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $this->assertEquals("Super text.", $this->object->translate("Super text."));
+        $this->assertEquals("Šalamánač.", $this->object->translate("Šalamánač."));
+        $this->assertEquals("12 Test.", $this->object->translate("12 Test."));
+
     }
 }
