@@ -30,7 +30,6 @@ class DummyTranslatorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Oaza\Translator\DummyTranslator::translate
-     * @todo   Implement testTranslate().
      */
     public function testTranslate()
     {
