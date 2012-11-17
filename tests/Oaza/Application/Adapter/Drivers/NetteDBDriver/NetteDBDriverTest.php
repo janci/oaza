@@ -4,7 +4,10 @@ namespace Oaza\Application\Adapter\Drivers\NetteDBDriver;
 
 class NetteDBDriverTest extends \Oaza\Application\Adapter\Drivers\DummyDriver\DummyDriverTest {
 
+    /** @var string */
     private $pathToScripts;
+    
+    /** @var \Nette\Database\Connection  */
     private $database;
 
     protected function setUp() {
@@ -24,6 +27,7 @@ class NetteDBDriverTest extends \Oaza\Application\Adapter\Drivers\DummyDriver\Du
 
     protected function tearDown() {
         $this->database->query(file_get_contents($this->pathToScripts . "/drop_table.sql"));
+        $this->database = NULL;
+        unset($this->database);
     }
-
 }
