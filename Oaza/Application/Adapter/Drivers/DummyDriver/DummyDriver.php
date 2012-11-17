@@ -1,11 +1,11 @@
 <?php
-namespace Oaza\Application\Adapter\Drivers;
+
+namespace Oaza\Application\Adapter\Drivers\DummyDriver;
 
 use \Oaza\Application\Adapter\IDriver,
-    Oaza\Application\Adapter\Drivers\DummyDriver\ControlRepository\ControlRepository;
+    \Oaza\Application\Adapter\Drivers\DummyDriver\ControlRepository\ControlRepository;
 
-class DummyDriver extends \Oaza\Object implements IDriver
-{
+class DummyDriver extends \Oaza\Object implements IDriver {
 
     private $controlRepository;
 
@@ -13,8 +13,8 @@ class DummyDriver extends \Oaza\Object implements IDriver
      * Returns Control Repository implement in driver
      * @return \Oaza\Application\Adapter\ControlRepository\IControlRepository
      */
-    public function getControlRepository()
-    {
-        return isset($this->controlRepository)? $this->controlRepository:$this->controlRepository=new ControlRepository;
+    public function getControlRepository() {
+        return isset($this->controlRepository) ? $this->controlRepository : $this->controlRepository = new ControlRepository;
     }
+
 }
