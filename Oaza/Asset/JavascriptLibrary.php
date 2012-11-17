@@ -12,6 +12,8 @@ namespace Oaza\Asset;
 
 /**
  * Enumerate class for javascript libraries
+ *
+ * @author  Jan Svantner
  */
 class JavascriptLibrary
 {

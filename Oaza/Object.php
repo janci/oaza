@@ -13,7 +13,7 @@ namespace Oaza;
 /**
  * Base object in framework oaza
  *
- * @author      Jan Svantner
+ * @author  Jan Svantner
  */
 abstract class Object extends \Nette\Object
 {

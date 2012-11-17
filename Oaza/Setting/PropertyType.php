@@ -13,6 +13,8 @@ namespace Oaza\Setting;
 
 /**
  * Enum class for property types
+ *
+ * @author  Jan Svantner
  */
 class PropertyType
 {

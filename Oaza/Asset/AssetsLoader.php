@@ -18,6 +18,8 @@ use Assetic\Filter\Yui;
 
 /**
  * Asset loader
+ *
+ * @author  Jan Svantner
  */
 class AssetsLoader extends \Oaza\Object
 {

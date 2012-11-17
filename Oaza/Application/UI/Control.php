@@ -20,7 +20,7 @@ use Oaza\Developer\InvalidArgumentException;
 /**
  * Abstract class for oaza controls
  *
- * @author      Jan Svantner
+ * @author  Jan Svantner
  */
 abstract class Control extends \Nette\Application\UI\Control
 {

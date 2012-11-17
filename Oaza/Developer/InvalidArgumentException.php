@@ -11,6 +11,11 @@
 
 namespace Oaza\Developer;
 
+/**
+ * Exception for invalid arguments
+ *
+ * @author  Jan Svantner
+ */
 class InvalidArgumentException extends \Exception
 {
 

@@ -14,6 +14,8 @@ use Oaza\Application\Adapter\IDriver;
 
 /**
  * Abstract Oaza presenter
+ *
+ * @author  Jan Svantner
  */
 abstract class Presenter extends \Nette\Application\UI\Presenter
 {
