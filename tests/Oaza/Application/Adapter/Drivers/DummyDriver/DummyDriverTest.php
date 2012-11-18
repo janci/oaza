@@ -11,6 +11,11 @@
 
 namespace Oaza\Application\Adapter\Drivers\DummyDriver;
 
+/**
+ * Tests for adapter DummyDriver
+ *
+ * @author Filip Vozar
+ */
 class DummyDriverTest extends \PHPUnit_Framework_TestCase
 {
 
