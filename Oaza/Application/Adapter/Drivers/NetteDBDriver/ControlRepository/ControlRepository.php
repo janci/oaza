@@ -21,14 +21,14 @@ use Oaza\Application\Adapter\ControlRepository\IControlRepository,
 class ControlRepository extends \Oaza\Object implements IControlRepository {
 
     /** @var \Nette\Database\Table\Selection */
-    private $selection;
+    private $tableSelection;
 
     /** @var array */
     private $entities;
 
-    public function __construct(\Nette\Database\Table\Selection $selection) {
-        $this->selection = $selection;
-        $this->entities = $selection->fetchPairs('control_name');
+    public function __construct(\Nette\Database\Table\Selection $tableSelection) {
+        $this->tableSelection = $tableSelection;
+        $this->entities = $tableSelection->fetchPairs('control_name');
     }
 
     /**

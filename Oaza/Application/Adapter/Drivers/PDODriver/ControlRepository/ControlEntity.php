@@ -8,10 +8,15 @@
  * the file license.txt that was distributed with this source code.
  */
 
-namespace Oaza\Application\Adapter\Drivers\DummyDriver\ControlRepository;
+namespace Oaza\Application\Adapter\Drivers\PDODriver\ControlRepository;
 
 use Oaza\Application\Adapter\ControlRepository\IControlEntity;
 
+/**
+ * Implement ControlEntity for PDO
+ *
+ * @author Filip Vozar
+ */
 class ControlEntity extends \Oaza\Object implements IControlEntity
 {
 

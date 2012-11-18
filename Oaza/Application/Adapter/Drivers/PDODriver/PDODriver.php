@@ -8,25 +8,27 @@
  * the file license.txt that was distributed with this source code.
  */
 
-namespace Oaza\Application\Adapter\Drivers\NetteDBDriver;
+namespace Oaza\Application\Adapter\Drivers\PDODriver;
 
 use \Oaza\Application\Adapter\IDriver,
-    \Oaza\Application\Adapter\Drivers\NetteDBDriver\ControlRepository\ControlRepository;
+    \Oaza\Application\Adapter\Drivers\PDODriver\ControlRepository\ControlRepository;
 
 /**
- * Oaza adapter driver for Nette/Database
+ * Oaza adaptert driver for PDO
  *
  * @author Filip Vozar
  */
-class NetteDBDriver extends \Oaza\Object implements IDriver {
+class PDODriver extends \Oaza\Object implements IDriver
+{
 
     /** @var \Oaza\Application\Adapter\ControlRepository\IControlRepository */
     private $controlRepository;
 
-    /** @var \Nette\Database\Connection */
+    /** @var \PDO */
     private $connection;
 
-    public function __construct(\Nette\Database\Connection $connection) {
+    public function __construct(\PDO $connection)
+    {
         $this->connection = $connection;
     }
 
@@ -34,8 +36,9 @@ class NetteDBDriver extends \Oaza\Object implements IDriver {
      * Returns Control Repository implement in driver
      * @return \Oaza\Application\Adapter\ControlRepository\IControlRepository
      */
-    public function getControlRepository() {
-        return isset($this->controlRepository) ? $this->controlRepository : $this->controlRepository = new ControlRepository($this->connection->table('component'));
-    }
+    public function getControlRepository()
+    {
 
+        return (isset($this->controlRepository) ? $this->controlRepository : $this->controlRepository = new ControlRepository($this->connection));
+    }
 }

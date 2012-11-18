@@ -8,20 +8,34 @@
  * the file license.txt that was distributed with this source code.
  */
 
-namespace Oaza\Application\Adapter\Drivers\DummyDriver\ControlRepository;
+namespace Oaza\Application\Adapter\Drivers\PDODriver\ControlRepository;
 
 use Oaza\Application\Adapter\ControlRepository\IControlRepository,
     Oaza\Application\Adapter\ControlRepository\IControlEntity;
 
+/**
+ * Implement ControlRepository for PDO
+ *
+ * @author Filip Vozar
+ */
 class ControlRepository extends \Oaza\Object implements IControlRepository
 {
+
+    /** @var \PDO */
+    private $connection;
 
     /** @var array */
     private $entities;
 
-    public function __construct()
+    public function __construct(\PDO $connection)
     {
-        $this->entities['demo'] = new ControlEntity('\Oaza\Sample\HelloWorld\HelloWorld', array('text' => 'Hello World demo.'));
+        $this->connection = $connection;
+
+        $statement = $this->connection->prepare("SELECT * FROM component");
+        var_dump($statement);
+        $statement->execute();
+        $this->entities = $statement->fetchAll();
+        $statement = null;
     }
 
     /**
@@ -31,7 +45,7 @@ class ControlRepository extends \Oaza\Object implements IControlRepository
      */
     public function getControlEntity($controlName)
     {
-        return (isset($this->entities[$controlName])) ? $this->entities[$controlName] : null;
+        return (isset($this->entities[$controlName]) ? $this->entities[$controlName] : null);
     }
 
     /**
@@ -39,8 +53,10 @@ class ControlRepository extends \Oaza\Object implements IControlRepository
      * @param $controlEntity
      * @return IControlRepository
      */
-    public function delete(IControlEntity $controlEntity)
+    public function delete(\Oaza\Application\Adapter\ControlRepository\IControlEntity $controlEntity)
     {
+        $query = 'DELETE FROM component WHERE id = ' . $controlEntity->getID();
+        $this->connection->exec($query);
         return $this;
     }
 

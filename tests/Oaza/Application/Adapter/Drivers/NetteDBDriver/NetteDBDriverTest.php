@@ -15,33 +15,61 @@ namespace Oaza\Application\Adapter\Drivers\NetteDBDriver;
  *
  * @author Filip Vozar
  */
-class NetteDBDriverTest extends \Oaza\Application\Adapter\Drivers\DummyDriver\DummyDriverTest {
+class NetteDBDriverTest extends \PHPUnit_Framework_TestCase
+{
+    /** @var string */
+    protected $className;
+
+    /** @var NetteDBDriver */
+    protected $firstDriver;
+
+    /** @var NetteDBDriver */
+    protected $secondDriver;
 
     /** @var string */
     private $pathToScripts;
 
-    /** @var \Nette\Database\Connection  */
-    private $database;
+    /** @var \Nette\Database\Connection */
+    private $databaseConnection;
 
-    protected function setUp() {
-
+    protected function setUp()
+    {
         $this->className = 'Oaza\Application\Adapter\Drivers\NetteDBDriver\NetteDBDriver';
-
         $this->pathToScripts = dirname(__DIR__) . "/NetteDBDriver";
 
-        $path = 'sqlite:' . $this->pathToScripts . '/db.sqlite3';
-        $this->database = new \Nette\Database\Connection($path);
+        $dsn = 'sqlite:' . $this->pathToScripts . '/db.sqlite3';
+        var_dump($dsn);
+        $this->databaseConnection = new \Nette\Database\Connection($dsn);
 
-        $this->database->query(file_get_contents($this->pathToScripts . "/create_table.sql"));
-
-        $this->firstDriver = new NetteDBDriver($this->database);
-        $this->secondDriver = new NetteDBDriver($this->database);
+        $this->databaseConnection->query(file_get_contents($this->pathToScripts . "/create_table.sql"));
+        $this->firstDriver = new NetteDBDriver($this->databaseConnection);
+        $this->secondDriver = new NetteDBDriver($this->databaseConnection);
     }
 
-    protected function tearDown() {
-        $this->database->query(file_get_contents($this->pathToScripts . "/drop_table.sql"));
-        $this->database = NULL;
-        unset($this->database);
+    protected function tearDown()
+    {
+        $this->databaseConnection->query(file_get_contents($this->pathToScripts . "/drop_table.sql"));
+        $this->databaseConnection = NULL;
+        unset($this->databaseConnection);
     }
 
+    /**
+     * @covers Oaza\Application\Adapter\Drivers\NetteDBDriver::getControlRepository
+     */
+    public function testGetControlRepository()
+    {
+        $this->assertNotNull($this->firstDriver->getControlRepository());
+        $this->assertNotNull($this->secondDriver->getControlRepository());
+
+        $this->assertInstanceOf($this->className, $this->firstDriver);
+        $this->assertInstanceOf($this->className, $this->secondDriver);
+
+        $firstSameRepository = $this->firstDriver->getControlRepository();
+        $secondSameRepository = $this->firstDriver->getControlRepository();
+        $this->assertSame($firstSameRepository, $secondSameRepository);
+
+        $firstNotSameRepository = $this->firstDriver->getControlRepository();
+        $secondNotSameRepository = $this->secondDriver->getControlRepository();
+        $this->assertNotSame($firstNotSameRepository, $secondNotSameRepository);
+    }
 }

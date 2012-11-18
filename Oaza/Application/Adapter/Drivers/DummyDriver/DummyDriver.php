@@ -18,7 +18,8 @@ use \Oaza\Application\Adapter\IDriver,
  *
  * @author Jan Svantner
  */
-class DummyDriver extends \Oaza\Object implements IDriver {
+class DummyDriver extends \Oaza\Object implements IDriver
+{
 
     /** @var \Oaza\Application\Adapter\ControlRepository\IControlRepository */
     private $controlRepository;
@@ -27,7 +28,8 @@ class DummyDriver extends \Oaza\Object implements IDriver {
      * Returns Control Repository implement in driver
      * @return \Oaza\Application\Adapter\ControlRepository\IControlRepository
      */
-    public function getControlRepository() {
+    public function getControlRepository()
+    {
         return isset($this->controlRepository) ? $this->controlRepository : $this->controlRepository = new ControlRepository;
     }
 
