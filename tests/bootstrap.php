@@ -12,6 +12,9 @@
  * Bootstrap file for unit tests
  */
 
+
+define('APP_DIR', dirname(dirname(__FILE__)));
+
 require_once (dirname(__FILE__)."/../tools/autoload.php" );
 
 
