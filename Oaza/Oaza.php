@@ -15,6 +15,8 @@ use Oaza\Asset\JavascriptLibrary;
 
 /**
  * Oaza framework service
+ *
+ * @author  Jan Svantner
  */
 class Oaza extends Object
 {
