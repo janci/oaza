@@ -18,6 +18,8 @@ use Oaza\Asset\JavascriptLibrary;
  */
 class Oaza extends Object
 {
+    const VERSION = "20121118";
+
     /** @var string */
     private $oazaRootdir;
 
@@ -95,6 +97,13 @@ class Oaza extends Object
      * Install Oaza framework to your application
      */
     public function install(){
+
+    }
+
+    /**
+     * Update Oaza framework database to any version, default is current version
+     */
+    public function update($toVersion = self::VERSION){
 
     }
 
