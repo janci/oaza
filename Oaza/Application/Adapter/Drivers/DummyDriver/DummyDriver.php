@@ -7,6 +7,7 @@ use \Oaza\Application\Adapter\IDriver,
 
 class DummyDriver extends \Oaza\Object implements IDriver {
 
+    /** @var \Oaza\Application\Adapter\ControlRepository\IControlRepository */
     private $controlRepository;
 
     /**

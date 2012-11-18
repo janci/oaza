@@ -7,7 +7,10 @@ use \Oaza\Application\Adapter\IDriver,
 
 class NetteDBDriver extends \Oaza\Object implements IDriver {
 
+    /** @var Oaza\Application\Adapter\Drivers\NetteDBDriver\ControlRepository */
     private $controlRepository;
+
+    /** @var \Nette\Database\Connection */
     private $connection;
 
     public function __construct(\Nette\Database\Connection $connection) {

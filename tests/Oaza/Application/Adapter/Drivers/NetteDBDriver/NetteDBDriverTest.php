@@ -6,7 +6,7 @@ class NetteDBDriverTest extends \Oaza\Application\Adapter\Drivers\DummyDriver\Du
 
     /** @var string */
     private $pathToScripts;
-    
+
     /** @var \Nette\Database\Connection  */
     private $database;
 
@@ -30,4 +30,5 @@ class NetteDBDriverTest extends \Oaza\Application\Adapter\Drivers\DummyDriver\Du
         $this->database = NULL;
         unset($this->database);
     }
+
 }

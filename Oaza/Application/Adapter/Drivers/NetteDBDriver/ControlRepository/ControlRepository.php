@@ -7,7 +7,10 @@ use Oaza\Application\Adapter\ControlRepository\IControlRepository,
 
 class ControlRepository extends \Oaza\Object implements IControlRepository {
 
+    /** @var \Nette\Database\Table\Selection */
     private $selection;
+
+    /** @var array */
     private $entities;
 
     public function __construct(\Nette\Database\Table\Selection $selection) {
@@ -31,7 +34,7 @@ class ControlRepository extends \Oaza\Object implements IControlRepository {
      */
     public function delete(\Oaza\Application\Adapter\ControlRepository\IControlEntity $controlEntity) {
         $selection = clone $this->selection;
-        $selection->where('id', $controlEntity->getID()).delete();
+        $selection->where('id', $controlEntity->getID())->delete();
         return $this;
     }
 

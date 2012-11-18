@@ -2,14 +2,16 @@
 
 namespace Oaza\Application\Adapter\Drivers\DummyDriver\ControlRepository;
 
-use  Oaza\Application\Adapter\ControlRepository\IControlRepository,
+use Oaza\Application\Adapter\ControlRepository\IControlRepository,
     Oaza\Application\Adapter\ControlRepository\IControlEntity;
 
-class ControlRepository extends \Oaza\Object implements IControlRepository
-{
+class ControlRepository extends \Oaza\Object implements IControlRepository {
+
+    /** @var array */
     private $entities;
+
     public function __construct() {
-        $this->entities['demo'] = new ControlEntity('\Oaza\Sample\HelloWorld\HelloWorld', array('text'=> 'Hello World demo.'));
+        $this->entities['demo'] = new ControlEntity('\Oaza\Sample\HelloWorld\HelloWorld', array('text' => 'Hello World demo.'));
     }
 
     /**
@@ -17,9 +19,8 @@ class ControlRepository extends \Oaza\Object implements IControlRepository
      * @param string $controlName
      * @return IControlEntity
      */
-    public function getControlEntity($controlName)
-    {
-        return (isset($this->entities[$controlName]))? $this->entities[$controlName]:null;
+    public function getControlEntity($controlName) {
+        return (isset($this->entities[$controlName])) ? $this->entities[$controlName] : null;
     }
 
     /**
@@ -27,8 +28,8 @@ class ControlRepository extends \Oaza\Object implements IControlRepository
      * @param $controlEntity
      * @return IControlRepository
      */
-    public function delete(IControlEntity $controlEntity)
-    {
+    public function delete(IControlEntity $controlEntity) {
         return $this;
     }
+
 }

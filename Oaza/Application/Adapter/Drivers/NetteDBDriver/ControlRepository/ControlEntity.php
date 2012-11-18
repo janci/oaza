@@ -6,7 +6,10 @@ use Oaza\Application\Adapter\ControlRepository\IControlEntity;
 
 class ControlEntity extends \Oaza\Object implements IControlEntity {
 
+    /** @var string */
     private $className;
+
+    /** @var array */
     private $properties;
 
     public function __construct($className, $properties) {
@@ -31,4 +34,3 @@ class ControlEntity extends \Oaza\Object implements IControlEntity {
     }
 
 }
-
