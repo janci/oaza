@@ -36,16 +36,9 @@ abstract class Presenter extends \Nette\Application\UI\Presenter
      * @param \Nette\DI\Container $context
      * @param \Oaza\Oaza $oaza
      */
-    public function __construct(\Nette\DI\Container $context, \Oaza\Oaza $oaza=null, \Nette\Localization\ITranslator $translator=null, IDriver $oazaAdapterDriver){
-        parent::__construct($context);
-
-        if(!isset($oaza)) {
-            $oaza = new \Oaza\Oaza();
-            $oaza->registerExternalSources();
-        }
-
+    public function __construct(\Nette\DI\Container $context, \Oaza\Oaza $oaza, \Nette\Localization\ITranslator $translator=null){
         $this->oaza = $oaza;
-        $this->oazaDriver = $oazaAdapterDriver;
+        $this->oazaDriver = $this->oaza->getDatabaseAdapter();
         $this->translator = $translator;
     }
 
