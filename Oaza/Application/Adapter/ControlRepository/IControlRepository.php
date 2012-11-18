@@ -12,6 +12,8 @@ namespace Oaza\Application\Adapter\ControlRepository;
 
 /**
  * Interface for management controlEntity
+ *
+ * @author Jan Svantner
  */
 interface IControlRepository
 {

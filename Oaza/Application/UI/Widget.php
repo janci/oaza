@@ -18,7 +18,7 @@ use \Nette\Utils\Html;
 /**
  *  Abstract class for rendered controls by oaza
  *
- *  @author     Jan Svantner
+ * @author  Jan Svantner
  */
 abstract class Widget extends Control
 {

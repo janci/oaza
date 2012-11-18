@@ -14,6 +14,8 @@ use Assetic\Asset\AssetInterface;
 
 /**
  * Coffee filter for Assetic with php library coffeescript
+ *
+ * @author  Jan Svantner
  */
 class PHPCoffeeScriptFilter implements \Assetic\Filter\FilterInterface
 {

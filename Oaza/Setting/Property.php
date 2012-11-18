@@ -14,7 +14,7 @@ namespace Oaza\Setting;
 /**
  * Property for oaza controls
  *
- * @author      Jan Svantner
+ * @author  Jan Svantner
  */
 class Property extends \Oaza\Object
 {

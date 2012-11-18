@@ -16,6 +16,8 @@ use Oaza\Setting\PropertyType;
 
 /**
  * Sample example for oaza control
+ *
+ * @author  Jan Svantner
  */
 class HelloWorld extends \Oaza\Application\UI\Widget
 {

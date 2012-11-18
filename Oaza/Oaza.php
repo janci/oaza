@@ -15,9 +15,13 @@ use Oaza\Asset\JavascriptLibrary;
 
 /**
  * Oaza framework service
+ *
+ * @author  Jan Svantner
  */
 class Oaza extends Object
 {
+    const VERSION = "20121118";
+
     /** @var string */
     private $oazaRootdir;
 
@@ -30,8 +34,11 @@ class Oaza extends Object
     /** @var array */
     private $javascriptLibraries;
 
+    /** @var \Oaza\Application\Adapter\IDriver */
+    private $databaseAdapter;
 
-    public function __construct(){
+    public function __construct(\Oaza\Application\Adapter\IDriver $databaseAdapter){
+         $this->databaseAdapter = $databaseAdapter;
          $this->oazaRootdir = dirname(dirname(__FILE__));
          $this->oazaPublicDir = $this->oazaRootdir.DIRECTORY_SEPARATOR."public";
 
@@ -59,6 +66,14 @@ class Oaza extends Object
     }
 
     /**
+     * Returns current database adapter
+     * @return Application\Adapter\IDriver
+     */
+    public function getDatabaseAdapter(){
+        return $this->databaseAdapter;
+    }
+
+    /**
      * Load javascript and cascades styles for Oaza framework
      */
     public function registerExternalSources(){
@@ -78,6 +93,20 @@ class Oaza extends Object
 
     public function buildExternalSources(){
         $this->assetLoader->build();
+    }
+
+    /**
+     * Install Oaza framework to your application
+     */
+    public function install(){
+
+    }
+
+    /**
+     * Update Oaza framework database to any version, default is current version
+     */
+    public function update($toVersion = self::VERSION){
+
     }
 
 }

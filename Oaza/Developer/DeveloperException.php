@@ -10,6 +10,12 @@
 
 
 namespace Oaza\Developer;
+
+/**
+ * Exception for developers
+ *
+ * @author  Jan Svantner
+ */
 class DeveloperException  extends \Exception
 {
    public function __construct($message="", $code=0){

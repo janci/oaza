@@ -12,6 +12,8 @@ namespace Oaza\Translator;
 
 /**
  * Dummy translator
+ *
+ * @author  Jan Svantner
  */
 class DummyTranslator implements \Nette\Localization\ITranslator
 {
