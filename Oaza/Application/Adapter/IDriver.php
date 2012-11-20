@@ -17,6 +17,7 @@ namespace Oaza\Application\Adapter;
  */
 interface IDriver
 {
+
     /**
      * Returns Control Repository implement in driver
      * @return \Oaza\Application\Adapter\ControlRepository\IControlRepository
@@ -25,7 +26,7 @@ interface IDriver
 
     /**
      * Returns Translate Repository implement in driver
-     * @return \Oaza\Application\Adapter\ControlRepository\ITranslateRepository
+     * @return \Oaza\Application\Adapter\TranslateRepository\ITranslateRepository
      */
     public function getTranslateRepository();
 
