@@ -11,7 +11,8 @@
 namespace Oaza\Application\Adapter\Drivers\DummyDriver;
 
 use \Oaza\Application\Adapter\IDriver,
-    \Oaza\Application\Adapter\Drivers\DummyDriver\ControlRepository\ControlRepository;
+    \Oaza\Application\Adapter\Drivers\DummyDriver\ControlRepository\ControlRepository,
+    \Oaza\Application\Adapter\Drivers\DummyDriver\TranslateRepository\TranslateRepository;
 
 /**
  * Dummy implementation of Oaza Adapter
@@ -24,6 +25,9 @@ class DummyDriver extends \Oaza\Object implements IDriver
     /** @var \Oaza\Application\Adapter\ControlRepository\IControlRepository */
     private $controlRepository;
 
+    /** @var \Oaza\Application\Adapter\TranslateRepository\ITranslateRepository */
+    private $translateRepository;
+
     /**
      * Returns Control Repository implement in driver
      * @return \Oaza\Application\Adapter\ControlRepository\IControlRepository
@@ -33,4 +37,12 @@ class DummyDriver extends \Oaza\Object implements IDriver
         return isset($this->controlRepository) ? $this->controlRepository : $this->controlRepository = new ControlRepository;
     }
 
+    /**
+     * Returns Translate Repository implement in driver
+     * @return \Oaza\Application\Adapter\TranslateRepository\ITranslateRepository
+     */
+    public function getTranslateRepository()
+    {
+        return isset($this->translateRepository) ? $this->translateRepository : $this->translateRepository = new TranslateRepository;
+    }
 }

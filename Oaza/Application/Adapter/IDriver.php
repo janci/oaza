@@ -23,4 +23,10 @@ interface IDriver
      */
     public function getControlRepository();
 
+    /**
+     * Returns Translate Repository implement in driver
+     * @return \Oaza\Application\Adapter\ControlRepository\ITranslateRepository
+     */
+    public function getTranslateRepository();
+
 }
