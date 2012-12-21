@@ -8,10 +8,10 @@
  * the file license.txt that was distributed with this source code.
  */
 
-namespace Oaza\Application\Adapter\Drivers\NetteDBDriver\ControlRepository;
+namespace Oaza\Application\Adapter\Drivers\NetteDatabaseDriver\ControlRepository;
 
-use Oaza\Application\Adapter\ControlRepository\IControlRepository,
-    Oaza\Application\Adapter\ControlRepository\IControlEntity;
+use \Oaza\Application\Adapter\ControlRepository\IControlRepository,
+    \Oaza\Application\Adapter\ControlRepository\IControlEntity;
 
 /**
  * Implement ControlRepository for Nette/Database
