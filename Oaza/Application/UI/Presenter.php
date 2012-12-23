@@ -45,10 +45,10 @@ abstract class Presenter extends \Nette\Application\UI\Presenter
 
     public function startup() {
         parent::startup();
-        $this->checkExipiratedLink();
+        $this->checkExpiredLink();
     }
 
-    private function checkExpiratedLink(){
+    private function checkExpiredLink(){
         /* @var $expired \Nette\DateTime | NULL */
         $expired = $this->getParameter('expired', null);
         if(isset($expired)) {
