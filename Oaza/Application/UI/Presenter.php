@@ -35,11 +35,20 @@ abstract class Presenter extends \Nette\Application\UI\Presenter
      * Append Oaza dependency by constructor
      * @param \Nette\DI\Container $context
      * @param \Oaza\Oaza $oaza
+     * @param \Nette\Localization\ITranslator $translator
      */
     public function __construct(\Nette\DI\Container $context, \Oaza\Oaza $oaza, \Nette\Localization\ITranslator $translator=null){
         $this->oaza = $oaza;
         $this->oazaDriver = $this->oaza->getDatabaseAdapter();
         $this->translator = $translator;
+    }
+
+    /**
+     * Returns current page id
+     * @return int
+     */
+    public function getCurrentPageId(){
+        return $this->getParameter('pageId', null);
     }
 
     /**
