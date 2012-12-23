@@ -59,4 +59,24 @@ class DummyDriverTest extends \PHPUnit_Framework_TestCase
         $this->assertNotSame($firstNotSameRepository, $secondNotSameRepository);
     }
 
+    /**
+     * @covers Oaza\Application\Adapter\Drivers\DummyDriver::getRoutelRepository
+     */
+    public function testGetRouteRepository()
+    {
+        $this->assertNotNull($this->firstDriver->getRouteRepository());
+        $this->assertNotNull($this->secondDriver->getRouteRepository());
+
+        $this->assertInstanceOf($this->className, $this->firstDriver);
+        $this->assertInstanceOf($this->className, $this->secondDriver);
+
+        $firstSameRepository = $this->firstDriver->getRouteRepository();
+        $secondSameRepository = $this->firstDriver->getRouteRepository();
+        $this->assertSame($firstSameRepository, $secondSameRepository);
+
+        $firstNotSameRepository = $this->firstDriver->getRouteRepository();
+        $secondNotSameRepository = $this->secondDriver->getRouteRepository();
+        $this->assertNotSame($firstNotSameRepository, $secondNotSameRepository);
+    }
+
 }

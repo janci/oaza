@@ -30,4 +30,10 @@ interface IDriver
      */
     public function getTranslateRepository();
 
+    /**
+     * Returns Router Repository implement in driver
+     * @return \Oaza\Application\Adapter\RouteRepository\IRouteRepository
+     */
+    public function getRouteRepository();
+
 }

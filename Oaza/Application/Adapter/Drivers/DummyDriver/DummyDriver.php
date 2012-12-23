@@ -11,8 +11,9 @@
 namespace Oaza\Application\Adapter\Drivers\DummyDriver;
 
 use \Oaza\Application\Adapter\IDriver,
-    \Oaza\Application\Adapter\Drivers\DummyDriver\ControlRepository\ControlRepository,
-    \Oaza\Application\Adapter\Drivers\DummyDriver\TranslateRepository\TranslateRepository;
+    Oaza\Application\Adapter\Drivers\DummyDriver\ControlRepository\ControlRepository,
+    Oaza\Application\Adapter\Drivers\DummyDriver\TranslateRepository\TranslateRepository,
+    Oaza\Application\Adapter\Drivers\DummyDriver\RouteRepository\RouteRepository;
 
 /**
  * Dummy implementation of Oaza Adapter
@@ -22,27 +23,36 @@ use \Oaza\Application\Adapter\IDriver,
 class DummyDriver extends \Oaza\Object implements IDriver
 {
 
-    /** @var \Oaza\Application\Adapter\ControlRepository\IControlRepository */
+    /** @var ControlRepository */
     private $controlRepository;
 
-    /** @var \Oaza\Application\Adapter\TranslateRepository\ITranslateRepository */
+    /** @var TranslateRepository */
     private $translateRepository;
+
+    /** @var RouteRepository */
+    private $routeRepository;
 
     /**
      * Returns Control Repository implement in driver
-     * @return \Oaza\Application\Adapter\ControlRepository\IControlRepository
+     * @return ControlRepository
      */
-    public function getControlRepository()
-    {
+    public function getControlRepository() {
         return isset($this->controlRepository) ? $this->controlRepository : $this->controlRepository = new ControlRepository;
     }
 
     /**
      * Returns Translate Repository implement in driver
-     * @return \Oaza\Application\Adapter\TranslateRepository\ITranslateRepository
+     * @return TranslateRepository
      */
-    public function getTranslateRepository()
-    {
+    public function getTranslateRepository() {
         return isset($this->translateRepository) ? $this->translateRepository : $this->translateRepository = new TranslateRepository;
+    }
+
+    /**
+     * Returns Router Repository implement in driver
+     * @return RouteRepository
+     */
+    public function getRouteRepository() {
+        return isset($this->routeRepository) ? $this->routeRepository : $this->routeRepository = new RouteRepository();
     }
 }
