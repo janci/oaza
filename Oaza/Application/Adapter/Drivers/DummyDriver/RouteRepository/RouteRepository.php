@@ -68,7 +68,8 @@ class RouteRepository implements IRouteRepository
             'presenter' => 'Homepage',
             'action' => 'default',
             'path' => '/new-page/new-page2',
-            'pageId' => 5
+            'pageId' => 5,
+            'expire' => null
         );
 
         foreach($data as $id => $dataRow) {
