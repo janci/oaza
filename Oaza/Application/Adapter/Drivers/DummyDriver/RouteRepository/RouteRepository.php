@@ -32,7 +32,8 @@ class RouteRepository implements IRouteRepository
             'presenter' => 'Homepage',
             'action' => 'default',
             'path' => '/',
-            'pageId' => 1
+            'pageId' => 1,
+            'expire' => null
         );
 
         $data[] = array(
@@ -40,7 +41,8 @@ class RouteRepository implements IRouteRepository
             'presenter' => 'Homepage',
             'action' => 'default',
             'path' => '/new-page',
-            'pageId' => 2
+            'pageId' => 2,
+            'expire' => null
         );
 
         $data[] = array(
@@ -48,7 +50,8 @@ class RouteRepository implements IRouteRepository
             'presenter' => 'Homepage',
             'action' => 'default',
             'path' => '/new-page2',
-            'pageId' => 3
+            'pageId' => 3,
+            'expire' => null
         );
 
         $data[] = array(
@@ -56,7 +59,8 @@ class RouteRepository implements IRouteRepository
             'presenter' => 'Homepage',
             'action' => 'default',
             'path' => '/new-page/new-page',
-            'pageId' => 4
+            'pageId' => 4,
+            'expire' => null
         );
 
         $data[] = array(
