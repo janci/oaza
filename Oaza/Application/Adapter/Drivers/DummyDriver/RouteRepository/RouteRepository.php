@@ -26,6 +26,9 @@ class RouteRepository implements IRouteRepository
     /** @var array */
     private $entitiesById;
 
+    /** @var array */
+    private $entitiesByPrevious;
+
     public function __construct(){
         $data[] = array(
             'module' => null,
@@ -33,7 +36,8 @@ class RouteRepository implements IRouteRepository
             'action' => 'default',
             'path' => '/',
             'pageId' => 1,
-            'expire' => null
+            'expire' => null,
+            'previous_id' => null
         );
 
         $data[] = array(
@@ -42,7 +46,8 @@ class RouteRepository implements IRouteRepository
             'action' => 'default',
             'path' => '/new-page',
             'pageId' => 2,
-            'expire' => null
+            'expire' => null,
+            'previous_id' => null
         );
 
         $data[] = array(
@@ -51,7 +56,8 @@ class RouteRepository implements IRouteRepository
             'action' => 'default',
             'path' => '/new-page2',
             'pageId' => 3,
-            'expire' => null
+            'expire' => null,
+            'previous_id' => null
         );
 
         $data[] = array(
@@ -60,7 +66,8 @@ class RouteRepository implements IRouteRepository
             'action' => 'default',
             'path' => '/new-page/new-page',
             'pageId' => 4,
-            'expire' => null
+            'expire' => null,
+            'previous_id' => 4
         );
 
         $data[] = array(
@@ -69,11 +76,14 @@ class RouteRepository implements IRouteRepository
             'action' => 'default',
             'path' => '/new-page/new-page2',
             'pageId' => 5,
-            'expire' => null
+            'expire' => \DateTime::createFromFormat('d.m.Y H:i', '12.12.2012 13:14'),
+            'previous_id' => null
         );
 
         foreach($data as $id => $dataRow) {
             $this->entitiesById[$id+1] = $this->entitiesByPath[$dataRow['path']] = new RouteEntity($dataRow);
+            if(isset($dataRow['previous_id']))
+                $this->entitiesByPrevious[$dataRow['previous_id']] = $this->entitiesById[$id+1];
         }
 
     }
@@ -88,6 +98,18 @@ class RouteRepository implements IRouteRepository
     public function getRouteEntity($path, $params=null)
     {
         if(isset($this->entitiesByPath[$path])) return $this->entitiesByPath[$path];
+        return null;
+    }
+
+    /**
+     * Returns new route by old route id - use for expired links
+     *
+     * @param $oldRouteId int
+     * @return RouteEntity|NULL
+     */
+    public function findNewRoute($oldRouteId){
+        if(isset($this->entitiesByPrevious[$oldRouteId]))
+            return $this->entitiesByPrevious[$oldRouteId];
         return null;
     }
 

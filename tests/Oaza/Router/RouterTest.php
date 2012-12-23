@@ -42,8 +42,9 @@ class RouterTest extends \PHPUnit_Framework_TestCase
         $request = new \Nette\Http\Request($urlScript);
         $appRequest = $this->object->match($request);
         $params = $appRequest->getParameters();
+        $presenter = $appRequest->getPresenterName();
 
-        $this->assertEquals('Homepage', $params['presenter']);
+        $this->assertEquals('Homepage', $presenter);
         $this->assertEquals('default', $params['action']);
         $this->assertEquals('1', $params['pageId']);
     }
@@ -60,8 +61,9 @@ class RouterTest extends \PHPUnit_Framework_TestCase
         $request = new \Nette\Http\Request($urlScript);
         $appRequest = $this->object->match($request);
         $params = $appRequest->getParameters();
+        $presenter = $appRequest->getPresenterName();
 
-        $this->assertEquals('Homepage', $params['presenter']);
+        $this->assertEquals('Homepage', $presenter);
         $this->assertEquals('default', $params['action']);
         $this->assertEquals('2', $params['pageId']);
     }
@@ -78,8 +80,9 @@ class RouterTest extends \PHPUnit_Framework_TestCase
         $request = new \Nette\Http\Request($urlScript);
         $appRequest = $this->object->match($request);
         $params = $appRequest->getParameters();
+        $presenter = $appRequest->getPresenterName();
 
-        $this->assertEquals('Homepage', $params['presenter']);
+        $this->assertEquals('Homepage', $presenter);
         $this->assertEquals('default', $params['action']);
         $this->assertEquals('4', $params['pageId']);
     }

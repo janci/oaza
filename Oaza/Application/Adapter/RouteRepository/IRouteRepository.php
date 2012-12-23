@@ -33,4 +33,12 @@ interface IRouteRepository
      * @return \Oaza\Application\Adapter\Drivers\DummyDriver\RouteRepository\RouteEntity|NULL
      */
     public function findRouteEntity($id);
+
+    /**
+     * Returns new route by old route id - use for expired links
+     *
+     * @param $oldRouteId int
+     * @return RouteEntity|NULL
+     */
+    public function findNewRoute($oldRouteId);
 }

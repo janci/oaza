@@ -55,17 +55,12 @@ abstract class Presenter extends \Nette\Application\UI\Presenter
             $current = new \Nette\DateTime();
             if($expired->getTimestamp() < $current->getTimestamp() ) {
                 $pageId = $this->getCurrentPageId();
-                $path = $this->getHttpRequest()->getUrl()->getPath();
-                $routeEntity = $this->oazaDriver->getRouteRepository()->getRouteEntity($path);
+                $newRouteEntity = $this->oazaDriver->getRouteRepository()->findNewRoute($pageId);
 
-                $link = $this->lazyLink('Homepage:default', array('pageId'=>$routeEntity->getPageId()));
-                $parameters = $link->getParameters();
-
-                if($parameters['pageId'] == $pageId) {
+                if(!isset($newRouteEntity))
                     throw new \Nette\Application\BadRequestException("Page with id {$pageId} is expired.");
-                }
 
-                $this->redirect($link);
+                $this->redirect('Homepage:default', array('pageId'=>$newRouteEntity->getPageId()));
             }
         }
     }
