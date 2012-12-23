@@ -67,7 +67,7 @@ class RouteRepository implements IRouteRepository
             'path' => '/new-page/new-page',
             'pageId' => 4,
             'expire' => null,
-            'previous_id' => 4
+            'previous_id' => 5
         );
 
         $data[] = array(
