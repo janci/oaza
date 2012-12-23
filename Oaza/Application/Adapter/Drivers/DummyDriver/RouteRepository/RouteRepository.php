@@ -66,8 +66,8 @@ class RouteRepository implements IRouteRepository
             'action' => 'default',
             'path' => '/new-page/new-page',
             'pageId' => 4,
-            'expire' => null,
-            'previous_id' => 5
+            'expire' => \DateTime::createFromFormat('d.m.Y H:i', '12.12.2012 13:14'),
+            'previous_id' => null
         );
 
         $data[] = array(
@@ -76,8 +76,8 @@ class RouteRepository implements IRouteRepository
             'action' => 'default',
             'path' => '/new-page/new-page2',
             'pageId' => 5,
-            'expire' => \DateTime::createFromFormat('d.m.Y H:i', '12.12.2012 13:14'),
-            'previous_id' => null
+            'expire' => null,
+            'previous_id' => 4
         );
 
         foreach($data as $id => $dataRow) {
