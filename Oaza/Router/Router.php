@@ -53,7 +53,7 @@ class Router implements \Nette\Application\IRouter
         if(isset($module)) {
             $params[Route::MODULE_KEY] = $module;
             $params[Route::PRESENTER_KEY] = $module.':'.$params[Route::PRESENTER_KEY];
-            unset($params[self::MODULE_KEY], $params[self::PRESENTER_KEY]);
+            unset($params[Route::MODULE_KEY], $params[Route::PRESENTER_KEY]);
         }
 
         return new Request(
