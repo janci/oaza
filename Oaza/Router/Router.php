@@ -50,7 +50,10 @@ class Router implements \Nette\Application\IRouter
         $params['action'] = $routeEntity->getAction();
         $params['pageId'] = $routeEntity->getPageId();
 
-        if(isset($module)) $params[Route::MODULE_KEY] = $module;
+        if(isset($module)) {
+            $params[Route::MODULE_KEY] = $module;
+            $params[Route::PRESENTER_KEY] = $module.':'.$params[Route::PRESENTER_KEY];
+        }
 
         return new Request(
             $presenter,

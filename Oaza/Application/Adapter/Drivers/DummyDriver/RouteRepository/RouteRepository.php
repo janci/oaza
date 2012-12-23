@@ -44,7 +44,7 @@ class RouteRepository implements IRouteRepository
         );
 
         $data[] = array(
-            'module' => null,
+            'module' => 'Admin',
             'presenter' => 'Homepage',
             'action' => 'default',
             'path' => '/new-page2',
