@@ -47,8 +47,9 @@ class Router implements \Nette\Application\IRouter
         $presenter = $routeEntity->getPresenter();
 
         $params[Route::PRESENTER_KEY] = $presenter;
-        $params['action'] = $routeEntity->getAction();
-        $params['pageId'] = $routeEntity->getPageId();
+        $params['action']  = $routeEntity->getAction();
+        $params['pageId']  = $routeEntity->getPageId();
+        $params['expired'] = $routeEntity->getExpireDate();
 
         if(isset($module)) {
             $params[Route::MODULE_KEY] = $module;

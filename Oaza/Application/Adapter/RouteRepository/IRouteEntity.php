@@ -28,4 +28,6 @@ interface IRouteEntity
 
     public function getPath();
 
+    public function getExpireDate();
+
 }

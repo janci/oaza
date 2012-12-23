@@ -43,6 +43,33 @@ abstract class Presenter extends \Nette\Application\UI\Presenter
         $this->translator = $translator;
     }
 
+    public function startup() {
+        parent::startup();
+        $this->checkExipiratedLink();
+    }
+
+    private function checkExpiratedLink(){
+        /* @var $expired \Nette\DateTime | NULL */
+        $expired = $this->getParameter('expired', null);
+        if(isset($expired)) {
+            $current = new \Nette\DateTime();
+            if($expired->getTimestamp() < $current->getTimestamp() ) {
+                $pageId = $this->getCurrentPageId();
+                $path = $this->getHttpRequest()->getUrl()->getPath();
+                $routeEntity = $this->oazaDriver->getRouteRepository()->getRouteEntity($path);
+
+                $link = $this->lazyLink('Homepage:default', array('pageId'=>$routeEntity->getPageId()));
+                $parameters = $link->getParameters();
+
+                if($parameters['pageId'] == $pageId) {
+                    throw new \Nette\Application\BadRequestException("Page with id {$pageId} is expired.");
+                }
+
+                $this->redirect($link);
+            }
+        }
+    }
+
     /**
      * Returns current page id
      * @return int

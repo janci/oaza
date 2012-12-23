@@ -50,4 +50,10 @@ class RouteEntity implements IRouteEntity
     {
         return $this->data['path'];
     }
+
+
+    public function getExpireDate()
+    {
+        return $this->data['expire'];
+    }
 }
