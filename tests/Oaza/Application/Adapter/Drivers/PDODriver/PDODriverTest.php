@@ -1,29 +1,37 @@
 <?php
+/**
+ * This file is part of the Oaza Framework
+ *
+ * Copyright (c) 2012 Jan Svantner (http://www.janci.net)
+ *
+ * For the full copyright and license information, please view
+ * the file license.txt that was distributed with this source code.
+ */
+
 namespace Oaza\Application\Adapter\Drivers\PDODriver;
 
 class PDODriverTest extends \PHPUnit_Framework_TestCase
 {
 
     /** @var string */
-    protected $className;
-
-    /** @var PDODriver */
-    protected $firstDriver;
-
-    /** @var PDODriver */
-    protected $secondDriver;
-
-    /** @var string */
-    private $pathToSQLScripts;
+    public $pathToSQLScripts;
 
     /** @var \PDO */
-    private $databaseConnection;
+    public $databaseConnection;
 
+    /** @var PDODriver */
+    public $firstDriver;
+
+    /** @var PDODriver */
+    public $secondDriver;
+
+    /**
+     * Sets up the fixture, for example, opens a network connection.
+     * This method is called before a test is executed.
+     */
     protected function setUp()
     {
-        $this->className = 'Oaza\Application\Adapter\Drivers\PDODriver\PDODriver';
         $this->pathToSQLScripts = dirname(__DIR__) . '/PDODriver';
-
         $dsn = 'sqlite:' . $this->pathToSQLScripts . '/db.sqlite3';
         $this->databaseConnection = new \PDO($dsn);
 
@@ -32,7 +40,11 @@ class PDODriverTest extends \PHPUnit_Framework_TestCase
         $this->secondDriver = new PDODriver($this->databaseConnection);
     }
 
-    public function tearDown()
+    /**
+     * Tears down the fixture, for example, closes a network connection.
+     * This method is called after a test is executed.
+     */
+    protected function tearDown()
     {
         $this->databaseConnection->exec(file_get_contents($this->pathToSQLScripts . "/drop_table.sql"));
         $this->databaseConnection = null;
@@ -40,15 +52,20 @@ class PDODriverTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Oaza\Application\Adapter\Drivers\PDODriver::getControlRepository
+     * @covers Oaza\Application\Adapter\Drivers\PDODriver\PDODriver::getControlRepository
      */
     public function testGetControlRepository()
     {
+        $driverClassName = 'Oaza\Application\Adapter\Drivers\PDODriver\PDODriver';
+        $controlRepositoryClassName = 'Oaza\Application\Adapter\Drivers\PDODriver\ControlRepository\ControlRepository';
+
+        $this->assertInstanceOf($driverClassName, $this->firstDriver);
+        $this->assertInstanceOf($driverClassName, $this->secondDriver);
+        $this->assertInstanceOf($controlRepositoryClassName, $this->firstDriver->getControlRepository());
+        $this->assertInstanceOf($controlRepositoryClassName, $this->secondDriver->getControlRepository());
+
         $this->assertNotNull($this->firstDriver->getControlRepository());
         $this->assertNotNull($this->secondDriver->getControlRepository());
-
-        $this->assertInstanceOf($this->className, $this->firstDriver);
-        $this->assertInstanceOf($this->className, $this->secondDriver);
 
         $firstSameRepository = $this->firstDriver->getControlRepository();
         $secondSameRepository = $this->firstDriver->getControlRepository();
@@ -59,4 +76,28 @@ class PDODriverTest extends \PHPUnit_Framework_TestCase
         $this->assertNotSame($firstNotSameRepository, $secondNotSameRepository);
     }
 
+    /**
+     * @covers Oaza\Application\Adapter\Drivers\PDODriver\PDODriver::getTranslateRepository
+     */
+    public function testGetTranslateRepository()
+    {
+        $driverClassName = 'Oaza\Application\Adapter\Drivers\PDODriver\PDODriver';
+        $translateRepositoryClassName = 'Oaza\Application\Adapter\Drivers\PDODriver\TranslateRepository\TranslateRepository';
+
+        $this->assertInstanceOf($driverClassName, $this->firstDriver);
+        $this->assertInstanceOf($driverClassName, $this->secondDriver);
+        $this->assertInstanceOf($translateRepositoryClassName, $this->firstDriver->getTranslateRepository());
+        $this->assertInstanceOf($translateRepositoryClassName, $this->secondDriver->getTranslateRepository());
+
+        $this->assertNotNull($this->firstDriver->getTranslateRepository());
+        $this->assertNotNull($this->secondDriver->getTranslateRepository());
+
+        $firstSameRepository = $this->firstDriver->getTranslateRepository();
+        $secondSameRepository = $this->firstDriver->getTranslateRepository();
+        $this->assertSame($firstSameRepository, $secondSameRepository);
+
+        $firstNotSameRepository = $this->firstDriver->getTranslateRepository();
+        $secondNotSameRepository = $this->secondDriver->getTranslateRepository();
+        $this->assertNotSame($firstNotSameRepository, $secondNotSameRepository);
+    }
 }

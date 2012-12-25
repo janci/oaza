@@ -14,7 +14,7 @@ use Oaza\Application\Adapter\ControlRepository\IControlRepository,
     Oaza\Application\Adapter\ControlRepository\IControlEntity;
 
 /**
- * Implement ControlRepository for PDO
+ * Implementation of ControlRepository for PDO
  *
  * @author Filip Vozar
  */
@@ -22,20 +22,21 @@ class ControlRepository extends \Oaza\Object implements IControlRepository
 {
 
     /** @var \PDO */
-    private $connection;
+    private $PDOStatement;
 
     /** @var array */
     private $entities;
 
-    public function __construct(\PDO $connection)
+    public function __construct(\PDOStatement $PDOStatement)
     {
-        $this->connection = $connection;
+        $this->PDOStatement = $PDOStatement;
 
-        $statement = $this->connection->prepare("SELECT * FROM component");
-        var_dump($statement);
-        $statement->execute();
-        $this->entities = $statement->fetchAll();
-        $statement = null;
+        $rows = $this->PDOStatement->fetchAll();
+        foreach ($rows as $row) {
+            if (!isset($this->entities[$row['control_name']])) {
+                $this->translateEntities[$row['control_name']] = new ControlEntity($row['class_name'], $row['properties']);
+            }
+        }
     }
 
     /**
@@ -55,9 +56,9 @@ class ControlRepository extends \Oaza\Object implements IControlRepository
      */
     public function delete(\Oaza\Application\Adapter\ControlRepository\IControlEntity $controlEntity)
     {
-        $query = 'DELETE FROM component WHERE id = ' . $controlEntity->getID();
-        $this->connection->exec($query);
+        if (isset($this->entities[$controlEntity->getClassName()])) {
+            unset($this->entities[$controlEntity->getClassName()]);
+        }
         return $this;
     }
-
 }

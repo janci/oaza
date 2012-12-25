@@ -10,3 +10,5 @@
 --
 
 DROP TABLE IF EXISTS component;
+
+DROP TABLE IF EXISTS translator;
