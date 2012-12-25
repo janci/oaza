@@ -10,7 +10,7 @@
 
 namespace Oaza\Application\Adapter\Drivers\NetteDatabaseDriver\TranslateRepository;
 
-use Oaza\Application\Adapter\Drivers\NetteDatabaseDriver\NetteDatabaseDriver;
+use \Oaza\Application\Adapter\Drivers\NetteDatabaseDriver\NetteDatabaseDriver;
 
 /**
  * Tests for TranslateEntity class
@@ -21,39 +21,42 @@ class TranslateEntityTest extends \PHPUnit_Framework_TestCase
 {
 
     /** @var string */
-    public $pathToScripts;
+    private $pathToSQLScripts;
 
     /** @var \Nette\Database\Connection */
-    public $databaseConnection;
+    private $databaseConnection;
 
     /** @var TranslateEntity */
-    public $testButtonSubmit;
+    private $testButtonSubmit;
 
     /** @var TranslateEntity */
-    public $testButtonCancel;
+    private $testButtonCancel;
 
     /** @var TranslateEntity */
-    public $testButtonReset;
+    private $testButtonReset;
 
     /** @var TranslateEntity */
-    public $testCar;
+    private $testCar;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
-     *
-     * @FIXME For unknown reason, the sqlite does not create the necessary tables into single database file
-     * Tests run and passed with my local MySQL database with relevant data in tables.
      */
     protected function setUp()
     {
-        $this->pathToScripts = dirname(__DIR__);
-        $dsn = 'mysql:host=localhost;dbname=test';
-//        $dsn = 'sqlite:' . $this->pathToScripts . "/db.sqlite3";
-
+        $this->pathToSQLScripts = dirname(__DIR__);
+        $dsn = 'sqlite:' . $this->pathToSQLScripts . '/db.sqlite3';
         $this->databaseConnection = new \Nette\Database\Connection($dsn);
-//        $this->databaseConnection->query(file_get_contents($this->pathToScripts . "/create_table.sql"));
-//        $this->databaseConnection->query(file_get_contents($this->pathToScripts . "/fill_table.sql"));
+
+        $createStatements = explode(';', file_get_contents($this->pathToSQLScripts . '/create_table.sql'));
+        foreach ($createStatements as $statement) {
+            $this->databaseConnection->exec($statement);
+        }
+
+        $insertStatements = explode(';', file_get_contents($this->pathToSQLScripts . '/fill_table.sql'));
+        foreach ($insertStatements as $statement) {
+            $this->databaseConnection->exec($statement);
+        }
 
         $driver = new NetteDatabaseDriver($this->databaseConnection);
         $repository = $driver->getTranslateRepository();
@@ -71,9 +74,12 @@ class TranslateEntityTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-//        $this->databaseConnection->query(file_get_contents($this->pathToScripts . "/drop_table.sql"));
-//        $this->databaseConnection = NULL;
-//        unset($this->databaseConnection);
+        $dropStatements = explode(';', file_get_contents($this->pathToSQLScripts . '/drop_table.sql'));
+        foreach ($dropStatements as $statement) {
+            $this->databaseConnection->exec($statement);
+        }
+        $this->databaseConnection = NULL;
+        unset($this->databaseConnection);
     }
 
     /**

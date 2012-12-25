@@ -24,25 +24,32 @@ class NetteDatabaseDriverTest extends \PHPUnit_Framework_TestCase
     protected $secondDriver;
 
     /** @var string */
-    private $pathToScripts;
+    private $pathToSQLScripts;
 
     /** @var \Nette\Database\Connection */
     private $databaseConnection;
 
     protected function setUp()
     {
-        $this->pathToScripts = dirname(__DIR__) . "/NetteDatabaseDriver";
-        $dsn = 'sqlite:' . $this->pathToScripts . '/db.sqlite3';
+        $this->pathToSQLScripts = dirname(__DIR__) . '/NetteDatabaseDriver';
+        $dsn = 'sqlite:' . $this->pathToSQLScripts . '/db.sqlite3';
         $this->databaseConnection = new \Nette\Database\Connection($dsn);
 
-        $this->databaseConnection->query(file_get_contents($this->pathToScripts . "/create_table.sql"));
+        $createStatements = explode(';', file_get_contents($this->pathToSQLScripts . '/create_table.sql'));
+        foreach ($createStatements as $statement) {
+            $this->databaseConnection->exec($statement);
+        }
+
         $this->firstDriver = new NetteDatabaseDriver($this->databaseConnection);
         $this->secondDriver = new NetteDatabaseDriver($this->databaseConnection);
     }
 
     protected function tearDown()
     {
-        $this->databaseConnection->query(file_get_contents($this->pathToScripts . "/drop_table.sql"));
+        $dropStatements = explode(';', file_get_contents($this->pathToSQLScripts . '/drop_table.sql'));
+        foreach ($dropStatements as $statement) {
+            $this->databaseConnection->exec($statement);
+        }
         $this->databaseConnection = NULL;
         unset($this->databaseConnection);
     }
