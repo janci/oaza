@@ -20,7 +20,7 @@ class TranslateEntity implements ITranslateEntity
     /**
      * @var String
      */
-    public $messages;
+    private $messages;
 
     /**
      * Returns translate message by $language and $count

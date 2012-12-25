@@ -25,7 +25,7 @@ class TranslateRepository implements ITranslateRepository
     private $tableSelection;
 
     /** @var array */
-    public $translateEntities;
+    private $translateEntities;
 
     public function __construct(\Nette\Database\Table\Selection $tableSelection)
     {
@@ -34,11 +34,20 @@ class TranslateRepository implements ITranslateRepository
 
     /**
      * Prepare method for load translate entities for current page
-     * @return ITranslateRepository
+     * @return TranslateRepository
      */
     public function prepareTranslateEntitiesForCurrentPage()
     {
-        $this->translateEntities = $this->tableSelection->fetchPairs('id');
+        $rows = $this->tableSelection->fetchPairs('id');
+
+        foreach ($rows as $row) {
+            if (!isset($this->translateEntities[$row['keyword']])) {
+                $this->translateEntities[$row['keyword']] = new TranslateEntity();
+            }
+            $this->translateEntities[$row['keyword']]->setTranslateMessage($row['language'], $row['translate'], $row['count']);
+        }
+
+        return $this;
     }
 
     /**

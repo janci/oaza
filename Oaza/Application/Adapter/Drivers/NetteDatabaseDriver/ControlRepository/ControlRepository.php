@@ -18,7 +18,8 @@ use \Oaza\Application\Adapter\ControlRepository\IControlRepository,
  *
  * @author Filip Vozar
  */
-class ControlRepository extends \Oaza\Object implements IControlRepository {
+class ControlRepository extends \Oaza\Object implements IControlRepository
+{
 
     /** @var \Nette\Database\Table\Selection */
     private $tableSelection;
@@ -26,9 +27,16 @@ class ControlRepository extends \Oaza\Object implements IControlRepository {
     /** @var array */
     private $entities;
 
-    public function __construct(\Nette\Database\Table\Selection $tableSelection) {
+    public function __construct(\Nette\Database\Table\Selection $tableSelection)
+    {
         $this->tableSelection = $tableSelection;
-        $this->entities = $tableSelection->fetchPairs('control_name');
+
+        $rows = $tableSelection->fetchPairs('control_name');
+        foreach ($rows as $row) {
+            if (!isset($this->entities[$row['control_name']])) {
+                $this->translateEntities[$row['control_name']] = new ControlEntity($row['class_name'], $row['properties']);
+            }
+        }
     }
 
     /**
@@ -36,7 +44,8 @@ class ControlRepository extends \Oaza\Object implements IControlRepository {
      * @param string $controlName
      * @return IControlEntity
      */
-    public function getControlEntity($controlName) {
+    public function getControlEntity($controlName)
+    {
         return (isset($this->entities[$controlName]) ? $this->entities[$controlName] : null);
     }
 
@@ -45,10 +54,11 @@ class ControlRepository extends \Oaza\Object implements IControlRepository {
      * @param $controlEntity
      * @return IControlRepository
      */
-    public function delete(\Oaza\Application\Adapter\ControlRepository\IControlEntity $controlEntity) {
-        $selection = clone $this->selection;
-        $selection->where('id', $controlEntity->getID())->delete();
+    public function delete(\Oaza\Application\Adapter\ControlRepository\IControlEntity $controlEntity)
+    {
+        if (isset($this->entities[$controlEntity->getClassName()])) {
+            unset($this->entities[$controlEntity->getClassName()]);
+        }
         return $this;
     }
-
 }
