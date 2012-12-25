@@ -79,8 +79,8 @@ class NetteDatabaseDriverTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf($driverClassName, $this->firstDriver);
         $this->assertInstanceOf($driverClassName, $this->secondDriver);
-        $this->assertInstanceOf($translateRepositoryClassName, $this->firstDriver->getControlRepository());
-        $this->assertInstanceOf($translateRepositoryClassName, $this->secondDriver->getControlRepository());
+        $this->assertInstanceOf($translateRepositoryClassName, $this->firstDriver->getTranslateRepository());
+        $this->assertInstanceOf($translateRepositoryClassName, $this->secondDriver->getTranslateRepository());
 
         $this->assertNotNull($this->firstDriver->getTranslateRepository());
         $this->assertNotNull($this->secondDriver->getTranslateRepository());

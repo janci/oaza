@@ -49,9 +49,9 @@ class TranslateEntityTest extends \PHPUnit_Framework_TestCase
     {
         $this->pathToScripts = dirname(__DIR__);
         $dsn = 'mysql:host=localhost;dbname=test';
-
 //        $dsn = 'sqlite:' . $this->pathToScripts . "/db.sqlite3";
-//        $this->databaseConnection = new \Nette\Database\Connection($dsn);
+
+        $this->databaseConnection = new \Nette\Database\Connection($dsn);
 //        $this->databaseConnection->query(file_get_contents($this->pathToScripts . "/create_table.sql"));
 //        $this->databaseConnection->query(file_get_contents($this->pathToScripts . "/fill_table.sql"));
 

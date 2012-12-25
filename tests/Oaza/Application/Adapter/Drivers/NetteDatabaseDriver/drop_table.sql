@@ -9,7 +9,6 @@
 -- @author Filip Vozar
 --
 
-DROP TABLE IF EXISTS translator;
-
 DROP TABLE IF EXISTS component;
 
+DROP TABLE IF EXISTS translator;
