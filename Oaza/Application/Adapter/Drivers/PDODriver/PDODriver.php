@@ -11,10 +11,11 @@
 namespace Oaza\Application\Adapter\Drivers\PDODriver;
 
 use \Oaza\Application\Adapter\IDriver,
-    \Oaza\Application\Adapter\Drivers\PDODriver\ControlRepository\ControlRepository;
+    \Oaza\Application\Adapter\Drivers\PDODriver\ControlRepository\ControlRepository,
+    \Oaza\Application\Adapter\Drivers\PDODriver\TranslateRepository\TranslateRepository;
 
 /**
- * Oaza adaptert driver for PDO
+ * Oaza adapter driver implementation for PDO
  *
  * @author Filip Vozar
  */
@@ -23,6 +24,9 @@ class PDODriver extends \Oaza\Object implements IDriver
 
     /** @var \Oaza\Application\Adapter\ControlRepository\IControlRepository */
     private $controlRepository;
+
+    /** @var \Oaza\Application\Adapter\TranslateRepository\ITranslateRepository */
+    private $translateRepository;
 
     /** @var \PDO */
     private $connection;
@@ -33,12 +37,40 @@ class PDODriver extends \Oaza\Object implements IDriver
     }
 
     /**
-     * Returns Control Repository implement in driver
+     * Returns ControlRepository ControlRepository implement in driver
      * @return \Oaza\Application\Adapter\ControlRepository\IControlRepository
      */
     public function getControlRepository()
     {
+        if (isset($this->controlRepository)) {
+            $repository = $this->controlRepository;
+        } else {
+            $PDOStatement = $this->connection->prepare("SELECT * FROM component");
+            $PDOStatement->execute();
+            $this->controlRepository = new ControlRepository($PDOStatement);
+            $repository = $this->controlRepository;
+            $statement = null;
+        }
 
-        return (isset($this->controlRepository) ? $this->controlRepository : $this->controlRepository = new ControlRepository($this->connection));
+        return $repository;
+    }
+
+    /**
+     * Returns Translate Repository implement in driver
+     * @return \Oaza\Application\Adapter\TranslateRepository\ITranslateRepository
+     */
+    public function getTranslateRepository()
+    {
+        if (isset($this->translateRepository)) {
+            $repository = $this->translateRepository;
+        } else {
+            $PDOStatement = $this->connection->prepare("SELECT * FROM translator");
+            $PDOStatement->execute();
+            $this->translateRepository = new TranslateRepository($PDOStatement);
+            $repository = $this->translateRepository;
+            $statement = null;
+        }
+
+        return $repository;
     }
 }

@@ -8,30 +8,30 @@
  * the file license.txt that was distributed with this source code.
  */
 
-namespace Oaza\Application\Adapter\Drivers\PDODriver\ControlRepository;
+namespace Oaza\Application\Adapter\Drivers\NetteDatabaseDriver\ControlRepository;
 
-use Oaza\Application\Adapter\ControlRepository\IControlRepository,
-    Oaza\Application\Adapter\ControlRepository\IControlEntity;
+use \Oaza\Application\Adapter\ControlRepository\IControlRepository,
+    \Oaza\Application\Adapter\ControlRepository\IControlEntity;
 
 /**
- * Implementation of ControlRepository for PDO
+ * Implement ControlRepository for Nette/Database
  *
  * @author Filip Vozar
  */
 class ControlRepository extends \Oaza\Object implements IControlRepository
 {
 
-    /** @var \PDO */
-    private $PDOStatement;
+    /** @var \Nette\Database\Table\Selection */
+    private $tableSelection;
 
     /** @var array */
     private $entities;
 
-    public function __construct(\PDOStatement $PDOStatement)
+    public function __construct(\Nette\Database\Table\Selection $tableSelection)
     {
-        $this->PDOStatement = $PDOStatement;
+        $this->tableSelection = $tableSelection;
 
-        $rows = $this->PDOStatement->fetchAll();
+        $rows = $tableSelection->fetchPairs('control_name');
         foreach ($rows as $row) {
             if (!isset($this->entities[$row['control_name']])) {
                 $this->translateEntities[$row['control_name']] = new ControlEntity($row['class_name'], $row['properties']);

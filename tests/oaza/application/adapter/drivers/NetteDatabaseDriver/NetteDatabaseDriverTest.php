@@ -8,56 +8,59 @@
  * the file license.txt that was distributed with this source code.
  */
 
-namespace Oaza\Application\Adapter\Drivers\PDODriver;
+namespace Oaza\Application\Adapter\Drivers\NetteDatabaseDriver;
 
-class PDODriverTest extends \PHPUnit_Framework_TestCase
+/**
+ * Tests for adapter driver Nette/Database
+ *
+ * @author Filip Vozar
+ */
+class NetteDatabaseDriverTest extends \PHPUnit_Framework_TestCase
 {
+    /** @var NetteDatabaseDriver */
+    protected $firstDriver;
+
+    /** @var NetteDatabaseDriver */
+    protected $secondDriver;
 
     /** @var string */
-    public $pathToSQLScripts;
+    private $pathToSQLScripts;
 
-    /** @var \PDO */
-    public $databaseConnection;
+    /** @var \Nette\Database\Connection */
+    private $databaseConnection;
 
-    /** @var PDODriver */
-    public $firstDriver;
-
-    /** @var PDODriver */
-    public $secondDriver;
-
-    /**
-     * Sets up the fixture, for example, opens a network connection.
-     * This method is called before a test is executed.
-     */
     protected function setUp()
     {
-        $this->pathToSQLScripts = dirname(__DIR__) . '/PDODriver';
+        $this->pathToSQLScripts = dirname(__DIR__) . '/NetteDatabaseDriver';
         $dsn = 'sqlite:' . $this->pathToSQLScripts . '/db.sqlite3';
-        $this->databaseConnection = new \PDO($dsn);
+        $this->databaseConnection = new \Nette\Database\Connection($dsn);
 
-        $this->databaseConnection->exec(file_get_contents($this->pathToSQLScripts . "/create_table.sql"));
-        $this->firstDriver = new PDODriver($this->databaseConnection);
-        $this->secondDriver = new PDODriver($this->databaseConnection);
+        $createStatements = explode(';', file_get_contents($this->pathToSQLScripts . '/create_table.sql'));
+        foreach ($createStatements as $statement) {
+            $this->databaseConnection->exec($statement);
+        }
+
+        $this->firstDriver = new NetteDatabaseDriver($this->databaseConnection);
+        $this->secondDriver = new NetteDatabaseDriver($this->databaseConnection);
     }
 
-    /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
-     */
     protected function tearDown()
     {
-        $this->databaseConnection->exec(file_get_contents($this->pathToSQLScripts . "/drop_table.sql"));
-        $this->databaseConnection = null;
+        $dropStatements = explode(';', file_get_contents($this->pathToSQLScripts . '/drop_table.sql'));
+        foreach ($dropStatements as $statement) {
+            $this->databaseConnection->exec($statement);
+        }
+        $this->databaseConnection = NULL;
         unset($this->databaseConnection);
     }
 
     /**
-     * @covers Oaza\Application\Adapter\Drivers\PDODriver\PDODriver::getControlRepository
+     * @covers Oaza\Application\Adapter\Drivers\NetteDatabaseDriver\ControlRepository::getControlRepository
      */
     public function testGetControlRepository()
     {
-        $driverClassName = 'Oaza\Application\Adapter\Drivers\PDODriver\PDODriver';
-        $controlRepositoryClassName = 'Oaza\Application\Adapter\Drivers\PDODriver\ControlRepository\ControlRepository';
+        $driverClassName = 'Oaza\Application\Adapter\Drivers\NetteDatabaseDriver\NetteDatabaseDriver';
+        $controlRepositoryClassName = 'Oaza\Application\Adapter\Drivers\NetteDatabaseDriver\ControlRepository\ControlRepository';
 
         $this->assertInstanceOf($driverClassName, $this->firstDriver);
         $this->assertInstanceOf($driverClassName, $this->secondDriver);
@@ -76,13 +79,10 @@ class PDODriverTest extends \PHPUnit_Framework_TestCase
         $this->assertNotSame($firstNotSameRepository, $secondNotSameRepository);
     }
 
-    /**
-     * @covers Oaza\Application\Adapter\Drivers\PDODriver\PDODriver::getTranslateRepository
-     */
     public function testGetTranslateRepository()
     {
-        $driverClassName = 'Oaza\Application\Adapter\Drivers\PDODriver\PDODriver';
-        $translateRepositoryClassName = 'Oaza\Application\Adapter\Drivers\PDODriver\TranslateRepository\TranslateRepository';
+        $driverClassName = 'Oaza\Application\Adapter\Drivers\NetteDatabaseDriver\NetteDatabaseDriver';
+        $translateRepositoryClassName = 'Oaza\Application\Adapter\Drivers\NetteDatabaseDriver\TranslateRepository\TranslateRepository';
 
         $this->assertInstanceOf($driverClassName, $this->firstDriver);
         $this->assertInstanceOf($driverClassName, $this->secondDriver);

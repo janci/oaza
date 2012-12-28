@@ -8,16 +8,17 @@
  * the file license.txt that was distributed with this source code.
  */
 
-namespace Oaza\Application\Adapter\Drivers\NetteDBDriver\ControlRepository;
+namespace Oaza\Application\Adapter\Drivers\NetteDatabaseDriver\ControlRepository;
 
-use Oaza\Application\Adapter\ControlRepository\IControlEntity;
+use \Oaza\Application\Adapter\ControlRepository\IControlEntity;
 
 /**
  * Implement ControlEntity for Nette/Database
  *
  * @author Filip Vozar
  */
-class ControlEntity extends \Oaza\Object implements IControlEntity {
+class ControlEntity extends \Oaza\Object implements IControlEntity
+{
 
     /** @var string */
     private $className;
@@ -25,7 +26,8 @@ class ControlEntity extends \Oaza\Object implements IControlEntity {
     /** @var array */
     private $properties;
 
-    public function __construct($className, $properties) {
+    public function __construct($className, $properties)
+    {
         $this->className = $className;
         $this->properties = $properties;
     }
@@ -34,7 +36,8 @@ class ControlEntity extends \Oaza\Object implements IControlEntity {
      * Returns control classname
      * @return string
      */
-    public function getClassName() {
+    public function getClassName()
+    {
         return $this->className;
     }
 
@@ -42,7 +45,8 @@ class ControlEntity extends \Oaza\Object implements IControlEntity {
      * Returns control properties
      * @return array
      */
-    public function getProperties() {
+    public function getProperties()
+    {
         return $this->properties;
     }
 

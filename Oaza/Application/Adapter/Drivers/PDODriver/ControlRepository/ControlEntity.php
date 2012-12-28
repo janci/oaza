@@ -13,7 +13,7 @@ namespace Oaza\Application\Adapter\Drivers\PDODriver\ControlRepository;
 use Oaza\Application\Adapter\ControlRepository\IControlEntity;
 
 /**
- * Implement ControlEntity for PDO
+ * Implementation of ControlEntity for PDO
  *
  * @author Filip Vozar
  */
@@ -49,5 +49,4 @@ class ControlEntity extends \Oaza\Object implements IControlEntity
     {
         return $this->properties;
     }
-
 }
