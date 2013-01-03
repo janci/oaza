@@ -22,15 +22,15 @@ interface IRouteRepository
      *
      * @param $path string
      * @param $params string
-     * @return \Oaza\Application\Adapter\Drivers\DummyDriver\RouteRepository\RouteEntity|NULL
+     * @return IRouteEntity|NULL
      */
-    public function getRouteEntity($path, $params=null);
+    public function getRouteEntity($path, $params = null);
 
     /**
      * Returns entity by id
      *
      * @param $id int
-     * @return \Oaza\Application\Adapter\Drivers\DummyDriver\RouteRepository\RouteEntity|NULL
+     * @return IRouteEntity|NULL
      */
     public function findRouteEntity($id);
 
@@ -38,7 +38,7 @@ interface IRouteRepository
      * Returns new route by old route id - use for expired links
      *
      * @param $oldRouteId int
-     * @return RouteEntity|NULL
+     * @return IRouteEntity|NULL
      */
     public function findNewRoute($oldRouteId);
 }

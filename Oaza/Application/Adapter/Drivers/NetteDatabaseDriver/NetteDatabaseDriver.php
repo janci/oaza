@@ -12,7 +12,8 @@ namespace Oaza\Application\Adapter\Drivers\NetteDatabaseDriver;
 
 use \Oaza\Application\Adapter\IDriver,
     \Oaza\Application\Adapter\Drivers\NetteDatabaseDriver\ControlRepository\ControlRepository,
-    \Oaza\Application\Adapter\Drivers\NetteDatabaseDriver\TranslateRepository\TranslateRepository;
+    \Oaza\Application\Adapter\Drivers\NetteDatabaseDriver\TranslateRepository\TranslateRepository,
+    \Oaza\Application\Adapter\Drivers\NetteDatabaseDriver\RouteRepository\RouteRepository;
 
 /**
  * Oaza adapter driver for \Nette\Database
@@ -27,6 +28,9 @@ class NetteDatabaseDriver extends \Oaza\Object implements IDriver
 
     /** @var \Oaza\Application\Adapter\TranslateRepository\ITranslateRepository */
     private $translateRepository;
+
+    /** @var \Oaza\Application\Adapter\RouteRepository\IRouteRepository */
+    private $routeRepository;
 
     /** @var \Nette\Database\Connection */
     private $connection;
@@ -69,5 +73,22 @@ class NetteDatabaseDriver extends \Oaza\Object implements IDriver
     private function createTranslateRepository()
     {
         return new TranslateRepository($this->connection->table('translator'));
+    }
+
+    /**
+     * Returns Router Repository implement in driver
+     * @return \Oaza\Application\Adapter\RouteRepository\IRouteRepository
+     */
+    public function getRouteRepository()
+    {
+        return isset($this->routeRepository) ? $this->routeRepository : $this->routeRepository = $this->createRouteRepository();
+    }
+
+    /**
+     * @return RouteRepository
+     */
+    private function createRouteRepository()
+    {
+        return new RouteRepository($this->connection->table('router'));
     }
 }
