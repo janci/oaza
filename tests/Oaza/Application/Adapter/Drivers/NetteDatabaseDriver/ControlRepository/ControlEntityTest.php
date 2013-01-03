@@ -10,6 +10,8 @@
 
 namespace Oaza\Application\Adapter\Drivers\NetteDatabaseDriver\ControlRepository;
 
+use \Oaza\Application\Adapter\Entities\ControlEntity;
+
 /**
  * Test for ControlEntity class
  *

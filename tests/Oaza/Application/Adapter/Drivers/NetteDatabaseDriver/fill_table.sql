@@ -23,3 +23,7 @@ INSERT INTO translator VALUES (9, 'TEST_CAR', 'sk', 0, 'Áut');
 INSERT INTO translator VALUES (10, 'TEST_CAR', 'sk', 1, 'Auto');
 INSERT INTO translator VALUES (11, 'TEST_CAR', 'sk', 3, 'Autá');
 INSERT INTO translator VALUES (12, 'TEST_CAR', 'sk', 5, 'Áut');
+
+INSERT INTO router VALUES(1, 'Admin', 'Homepage', 'default', '/', null, null);
+INSERT INTO router VALUES(2, null, 'Homepage', 'default', '/test-page', null, null);
+INSERT INTO router VALUES(3, null, 'Homepage', 'default', '/tests/test-page', null, 2);

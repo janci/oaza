@@ -11,7 +11,8 @@
 namespace Oaza\Application\Adapter\Drivers\NetteDatabaseDriver\ControlRepository;
 
 use \Oaza\Application\Adapter\ControlRepository\IControlRepository,
-    \Oaza\Application\Adapter\ControlRepository\IControlEntity;
+    \Oaza\Application\Adapter\ControlRepository\IControlEntity,
+    \Oaza\Application\Adapter\Entities\ControlEntity;
 
 /**
  * Implement ControlRepository for Nette/Database

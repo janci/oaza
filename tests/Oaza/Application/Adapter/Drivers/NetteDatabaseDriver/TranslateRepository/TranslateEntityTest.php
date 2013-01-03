@@ -10,7 +10,8 @@
 
 namespace Oaza\Application\Adapter\Drivers\NetteDatabaseDriver\TranslateRepository;
 
-use \Oaza\Application\Adapter\Drivers\NetteDatabaseDriver\NetteDatabaseDriver;
+use \Oaza\Application\Adapter\Drivers\NetteDatabaseDriver\NetteDatabaseDriver,
+    \Oaza\Application\Adapter\Entities\TranslateEntity;
 
 /**
  * Tests for TranslateEntity class
