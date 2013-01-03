@@ -11,6 +11,7 @@
 namespace Oaza\Application\Adapter\Drivers\DummyDriver\TranslateRepository;
 
 use Oaza\Application\Adapter\TranslateRepository\ITranslateRepository;
+use Oaza\Application\Adapter\Entities\TranslateEntity;
 
 /**
  * Dummy implementation of translate repository
@@ -20,6 +21,7 @@ use Oaza\Application\Adapter\TranslateRepository\ITranslateRepository;
 class TranslateRepository implements ITranslateRepository
 {
 
+    /** @var TranslateEntity[] */
     private $currentEntities;
 
     /**
@@ -32,16 +34,16 @@ class TranslateRepository implements ITranslateRepository
         $this->currentEntities['MESSAGE_BUTTON_CANCEL'] = new TranslateEntity();
         $this->currentEntities['MESSAGE_BUTTON_TEST'] = new TranslateEntity();
 
-        $this->currentEntities['MESSAGE_BUTTON_SUBMIT']->setMessage('sk', 'Potvrdiť');
-        $this->currentEntities['MESSAGE_BUTTON_SUBMIT']->setMessage('en', 'Submit');
+        $this->currentEntities['MESSAGE_BUTTON_SUBMIT']->setTranslateMessage('sk', 'Potvrdiť');
+        $this->currentEntities['MESSAGE_BUTTON_SUBMIT']->setTranslateMessage('en', 'Submit');
 
-        $this->currentEntities['MESSAGE_BUTTON_CANCEL']->setMessage('sk', 'Zrušiť');
-        $this->currentEntities['MESSAGE_BUTTON_CANCEL']->setMessage('en', 'Cancel');
+        $this->currentEntities['MESSAGE_BUTTON_CANCEL']->setTranslateMessage('sk', 'Zrušiť');
+        $this->currentEntities['MESSAGE_BUTTON_CANCEL']->setTranslateMessage('en', 'Cancel');
 
-        $this->currentEntities['MESSAGE_BUTTON_TEST']->setMessage('sk', 'Testov',0);
-        $this->currentEntities['MESSAGE_BUTTON_TEST']->setMessage('sk', 'Test',1);
-        $this->currentEntities['MESSAGE_BUTTON_TEST']->setMessage('sk', 'Testy',2);
-        $this->currentEntities['MESSAGE_BUTTON_TEST']->setMessage('sk', 'Testov',5);
+        $this->currentEntities['MESSAGE_BUTTON_TEST']->setTranslateMessage('sk', 'Testov', 0);
+        $this->currentEntities['MESSAGE_BUTTON_TEST']->setTranslateMessage('sk', 'Test', 1);
+        $this->currentEntities['MESSAGE_BUTTON_TEST']->setTranslateMessage('sk', 'Testy', 2);
+        $this->currentEntities['MESSAGE_BUTTON_TEST']->setTranslateMessage('sk', 'Testov', 5);
 
         return $this;
     }
@@ -53,6 +55,6 @@ class TranslateRepository implements ITranslateRepository
      */
     public function getTranslateEntity($keyword)
     {
-        return  (isset($this->currentEntities[$keyword]))? $this->currentEntities[$keyword]: null;
+        return (isset($this->currentEntities[$keyword])) ? $this->currentEntities[$keyword] : null;
     }
 }

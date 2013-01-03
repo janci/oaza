@@ -10,7 +10,8 @@
 
 namespace Oaza\Application\Adapter\Drivers\DummyDriver\RouteRepository;
 
-use Oaza\Application\Adapter\RouteRepository\IRouteRepository;
+use \Oaza\Application\Adapter\RouteRepository\IRouteRepository,
+    \Oaza\Application\Adapter\Entities\RouteEntity;
 
 /**
  * Dummy implementation of route repository
@@ -29,7 +30,8 @@ class RouteRepository implements IRouteRepository
     /** @var array */
     private $entitiesByPrevious;
 
-    public function __construct(){
+    public function __construct()
+    {
         $data[] = array(
             'module' => null,
             'presenter' => 'Homepage',
@@ -80,12 +82,11 @@ class RouteRepository implements IRouteRepository
             'previous_id' => 4
         );
 
-        foreach($data as $id => $dataRow) {
-            $this->entitiesById[$id+1] = $this->entitiesByPath[$dataRow['path']] = new RouteEntity($dataRow);
-            if(isset($dataRow['previous_id']))
-                $this->entitiesByPrevious[$dataRow['previous_id']] = $this->entitiesById[$id+1];
+        foreach ($data as $id => $dataRow) {
+            $this->entitiesById[$id + 1] = $this->entitiesByPath[$dataRow['path']] = new RouteEntity($dataRow);
+            if (isset($dataRow['previous_id']))
+                $this->entitiesByPrevious[$dataRow['previous_id']] = $this->entitiesById[$id + 1];
         }
-
     }
 
     /**
@@ -95,9 +96,9 @@ class RouteRepository implements IRouteRepository
      * @param $params string
      * @return RouteEntity|NULL
      */
-    public function getRouteEntity($path, $params=null)
+    public function getRouteEntity($path, $params = null)
     {
-        if(isset($this->entitiesByPath[$path])) return $this->entitiesByPath[$path];
+        if (isset($this->entitiesByPath[$path])) return $this->entitiesByPath[$path];
         return null;
     }
 
@@ -107,22 +108,22 @@ class RouteRepository implements IRouteRepository
      * @param $oldRouteId int
      * @return RouteEntity|NULL
      */
-    public function findNewRoute($oldRouteId){
-        if(isset($this->entitiesByPrevious[$oldRouteId]))
+    public function findNewRoute($oldRouteId)
+    {
+        if (isset($this->entitiesByPrevious[$oldRouteId]))
             return $this->entitiesByPrevious[$oldRouteId];
         return null;
     }
-
 
     /**
      * Returns entity by id
      *
      * @param $id int
-     * @return \Oaza\Application\Adapter\Drivers\DummyDriver\RouteRepository\RouteEntity|NULL
+     * @return RouteEntity|NULL
      */
     public function findRouteEntity($id)
     {
-        if(isset($this->entitiesById[$id])) return $this->entitiesById[$id];
+        if (isset($this->entitiesById[$id])) return $this->entitiesById[$id];
         return null;
     }
 }
