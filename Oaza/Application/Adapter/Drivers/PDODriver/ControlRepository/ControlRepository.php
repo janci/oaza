@@ -11,7 +11,8 @@
 namespace Oaza\Application\Adapter\Drivers\PDODriver\ControlRepository;
 
 use Oaza\Application\Adapter\ControlRepository\IControlRepository,
-    Oaza\Application\Adapter\ControlRepository\IControlEntity;
+    Oaza\Application\Adapter\ControlRepository\IControlEntity,
+    Oaza\Application\Adapter\Entities\ControlEntity;
 
 /**
  * Implementation of ControlRepository for PDO
@@ -21,17 +22,12 @@ use Oaza\Application\Adapter\ControlRepository\IControlRepository,
 class ControlRepository extends \Oaza\Object implements IControlRepository
 {
 
-    /** @var \PDO */
-    private $PDOStatement;
-
     /** @var array */
     private $entities;
 
     public function __construct(\PDOStatement $PDOStatement)
     {
-        $this->PDOStatement = $PDOStatement;
-
-        $rows = $this->PDOStatement->fetchAll();
+        $rows = $PDOStatement->fetchAll();
         foreach ($rows as $row) {
             if (!isset($this->entities[$row['control_name']])) {
                 $this->translateEntities[$row['control_name']] = new ControlEntity($row['class_name'], $row['properties']);

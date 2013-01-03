@@ -21,3 +21,13 @@ CREATE TABLE IF NOT EXISTS translator (
     count INTEGER NOT NULL,
     translate TEXT NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS router (
+    pageId INTEGER PRIMARY KEY,
+    module TEXT,
+    presenter TEXT NOT NULL,
+    action TEXT NOT NULL,
+    path TEXT NOT NULL,
+    expire TEXT,
+    previous_id INTEGER
+);

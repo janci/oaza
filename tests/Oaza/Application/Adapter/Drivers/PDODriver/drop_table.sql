@@ -7,8 +7,9 @@
 -- the file license.txt that was distributed with this source code.
 --
 -- @author Filip Vozar
---
 
-DROP TABLE IF EXISTS component;
+DROP TABLE component;
 
-DROP TABLE IF EXISTS translator;
+DROP TABLE translator;
+
+DROP TABLE router;

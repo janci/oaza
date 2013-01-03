@@ -10,6 +10,7 @@
 
 namespace Oaza\Application\Adapter\Drivers\PDODriver\ControlRepository;
 
+use \Oaza\Application\Adapter\Entities\ControlEntity;
 /**
  * Test for ControlEntity class of PDODriver
  */
@@ -42,17 +43,11 @@ class ControlEntityTest extends \PHPUnit_Framework_TestCase
     {
     }
 
-    /**
-     * @covers Oaza\Application\Adapter\Drivers\PDODriver\ControlRepository\ControlEntity::getClassName
-     */
     public function testGetClassName()
     {
         $this->assertEquals("TestEntity", $this->entity->getClassName());
     }
 
-    /**
-     * @covers Oaza\Application\Adapter\Drivers\PDODriver\ControlRepository\ControlEntity::getProperties
-     */
     public function testGetProperties()
     {
         $this->assertArrayHasKey("id", $this->entity->getProperties());

@@ -10,7 +10,8 @@
 
 namespace Oaza\Application\Adapter\Drivers\PDODriver\TranslateRepository;
 
-use \Oaza\Application\Adapter\TranslateRepository\ITranslateRepository;
+use Oaza\Application\Adapter\TranslateRepository\ITranslateRepository,
+    Oaza\Application\Adapter\Entities\TranslateEntity;
 
 /**
  * Implementation of translate repository for PDO Driver

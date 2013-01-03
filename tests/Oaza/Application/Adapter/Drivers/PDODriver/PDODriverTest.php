@@ -100,4 +100,26 @@ class PDODriverTest extends \PHPUnit_Framework_TestCase
         $secondNotSameRepository = $this->secondDriver->getTranslateRepository();
         $this->assertNotSame($firstNotSameRepository, $secondNotSameRepository);
     }
+
+    public function testGetRouteRepository()
+    {
+        $driverClassName = 'Oaza\Application\Adapter\Drivers\PDODriver\PDODriver';
+        $translateRepositoryClassName = 'Oaza\Application\Adapter\Drivers\PDODriver\RouteRepository\RouteRepository';
+
+        $this->assertInstanceOf($driverClassName, $this->firstDriver);
+        $this->assertInstanceOf($driverClassName, $this->secondDriver);
+        $this->assertInstanceOf($translateRepositoryClassName, $this->firstDriver->getRouteRepository());
+        $this->assertInstanceOf($translateRepositoryClassName, $this->secondDriver->getRouteRepository());
+
+        $this->assertNotNull($this->firstDriver->getRouteRepository());
+        $this->assertNotNull($this->secondDriver->getRouteRepository());
+
+        $firstSameRepository = $this->firstDriver->getRouteRepository();
+        $secondSameRepository = $this->firstDriver->getRouteRepository();
+        $this->assertSame($firstSameRepository, $secondSameRepository);
+
+        $firstNotSameRepository = $this->firstDriver->getRouteRepository();
+        $secondNotSameRepository = $this->secondDriver->getRouteRepository();
+        $this->assertNotSame($firstNotSameRepository, $secondNotSameRepository);
+    }
 }
