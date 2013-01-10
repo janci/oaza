@@ -45,7 +45,6 @@ class TranslateEntityTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->pathToSQLScripts = dirname(__DIR__);
-        var_dump($this->pathToSQLScripts);
         $dsn = 'sqlite:' . $this->pathToSQLScripts . '/db.sqlite3';
         $this->databaseConnection = new \PDO($dsn);
 

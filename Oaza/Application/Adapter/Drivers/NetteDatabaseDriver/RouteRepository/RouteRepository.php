@@ -43,10 +43,9 @@ class RouteRepository implements IRouteRepository
                 'expire' => $dataRow['expire'],
             );
 
-            $this->entitiesById[$id + 1] = $this->entitiesByPath[$dataRow['path']] = new RouteEntity($entityArgs);
-            var_dump($this->entitiesById[$id +1]);
+            $this->entitiesById[$id] = $this->entitiesByPath[$dataRow['path']] = new RouteEntity($entityArgs);
             if (isset($dataRow['previous_id']))
-                $this->entitiesByPrevious[$dataRow['previous_id']] = $this->entitiesById[$id + 1];
+                $this->entitiesByPrevious[$dataRow['previous_id']] = $this->entitiesById[$id];
         }
     }
 
