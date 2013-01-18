@@ -82,6 +82,7 @@ class Router implements \Nette\Application\IRouter
         $params = $appRequest->getParameters();
         $params[Route::PRESENTER_KEY] = $presenter;
 
+        if(!isset($params['pageId'])) return null;
         $routeEntity = $this->routeRepository->findRouteEntity($params['pageId']);
         if(!isset($routeEntity)) return null;
 
